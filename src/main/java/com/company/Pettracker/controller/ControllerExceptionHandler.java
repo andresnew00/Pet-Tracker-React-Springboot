@@ -45,7 +45,7 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
     }
     @ExceptionHandler(value = {PetNotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No Pet found")
     public ResponseEntity<VndErrors> notFoundException(PetNotFoundException e, WebRequest request) {
         VndErrors error = new VndErrors(request.toString(), e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);

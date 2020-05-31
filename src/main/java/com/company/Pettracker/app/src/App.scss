@@ -1,0 +1,92 @@
+$main-color: #94618e;
+$button-color: #49274a;
+$button-hover-color: #2a162b;
+$main-beige: #f4decb;
+$sc-beige: #f8eee7;
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.Nav {
+  background-color: $main-color;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+
+  .navbar-brand {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+
+  input {
+    background-color: $main-beige;
+    border-radius: 20px;
+  }
+
+  button {
+    background-color: $button-color;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    border: none;
+    &:hover {
+      background-color: $button-hover-color;
+    }
+  }
+}
+
+.OrderNCreate {
+  margin: 20px;
+  height: 50px;
+  border-bottom: solid black 0.5px;
+  .orderBy {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    h3 {
+      font-size: 18px;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+    button {
+      background-color: $button-color;
+      border-radius: 20px;
+      outline: none;
+    }
+    .btn-success:not(:disabled):not(.disabled).active,
+    .btn-success:not(:disabled):not(.disabled):active,
+    .show > .btn-success.dropdown-toggle {
+      background-color: $button-hover-color;
+      border-color: $button-hover-color;
+    }
+    .btn-success:not(:disabled):not(.disabled).active:focus,
+    .btn-success:not(:disabled):not(.disabled):active:focus,
+    .show > .btn-success.dropdown-toggle:focus {
+      box-shadow: none;
+    }
+    .btn-success.focus,
+    .btn-success:focus {
+      box-shadow: none;
+    }
+  }
+
+  .createButton {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      background-color: $button-color;
+      border-radius: 20px;
+      outline: none;
+    }
+    .btn-primary {
+        border-color: $button-color;
+    }
+  }
+}

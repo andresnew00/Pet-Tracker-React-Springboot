@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface PetInfoRepository extends JpaRepository<PetInfo, Integer> {
     /**
-     * finds pets by their name (including the ones that share the same name
+     * finds pets by their name (including the ones that share the same name)
      * @param petName
      * @return
      */

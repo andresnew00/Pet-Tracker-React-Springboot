@@ -1,0 +1,116 @@
+* {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.Nav {
+  background-color: #94618e;
+  height: 80px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Nav .navbar-brand {
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.Nav .navbar-collapse {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.Nav input {
+  background-color: #f4decb;
+  border-radius: 20px;
+}
+
+.Nav button {
+  background-color: #49274a;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  border: none;
+}
+
+.Nav button:hover {
+  background-color: #2a162b;
+}
+
+.OrderNCreate {
+  margin: 20px;
+  height: 50px;
+  border-bottom: solid black 0.5px;
+}
+
+.OrderNCreate .orderBy {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.OrderNCreate .orderBy h3 {
+  font-size: 18px;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+.OrderNCreate .orderBy button {
+  background-color: #49274a;
+  border-radius: 20px;
+  outline: none;
+}
+
+.OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled).active,
+.OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled):active,
+.OrderNCreate .orderBy .show > .btn-success.dropdown-toggle {
+  background-color: #2a162b;
+  border-color: #2a162b;
+}
+
+.OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled).active:focus,
+.OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled):active:focus,
+.OrderNCreate .orderBy .show > .btn-success.dropdown-toggle:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.OrderNCreate .orderBy .btn-success.focus,
+.OrderNCreate .orderBy .btn-success:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.OrderNCreate .createButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.OrderNCreate .createButton button {
+  background-color: #49274a;
+  border-radius: 20px;
+  outline: none;
+}
+
+.OrderNCreate .createButton .btn-primary {
+  border-color: #49274a;
+}
+/*# sourceMappingURL=App.css.map */
