@@ -10,7 +10,7 @@ function OrderNCreateBar() {
         <Col className="orderBy">
           <h3>Order By:</h3>
           <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
               date
             </Dropdown.Toggle>
 
@@ -22,7 +22,7 @@ function OrderNCreateBar() {
           </Dropdown>
         </Col>
         <Col className="createButton">
-        <Button variant="primary">Create new Patient</Button>{' '}
+        <Button variant="primary">Create new Patient <i className="fa fa-plus"></i> </Button>{' '}
         </Col>
       </Row>
     </Container>
