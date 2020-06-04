@@ -97,17 +97,32 @@ $darker-beige: #d6c0ac;
 .TableOfClients {
   width: 95%;
   margin: 15px auto;
-  max-height: 500px;
-  thead, tbody {
-    background-color: $main-beige;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
+  thead,
   tbody {
     background-color: $sc-beige;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    
   }
-  tr:not(.no-hover):hover {
+  thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    background-color: $main-beige;
+  }
+  tbody {
+    display: block;
+    height: 400px;
+    overflow-y: scroll;
+  }
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .items:not(.no-hover):hover {
     background-color: $darker-beige;
+  }
+  .fa {
+    cursor: pointer;
+    padding: 4px;
   }
 }

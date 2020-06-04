@@ -4,8 +4,8 @@ import { Table } from "react-bootstrap";
 import Axios from "axios";
 
 class TableOfClients extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       clientData: [
         {
@@ -32,18 +32,23 @@ class TableOfClients extends React.Component {
 
     const renderClient = (client, index) => {
       return (
-        <tr key={index}>
+        <tr className="items" key={index}>
           <td>{client.petName}</td>
           <td>{client.clientName}</td>
           <td>{client.phoneNumber}</td>
           <td>{client.behavior}</td>
           <td>{client.banned.toString()}</td>
-          <td>Actions</td>
+          <td>{client.lastTime}</td>
+          <td>
+            <i className="fa fa-edit fa-lg"></i>
+            <i className="fa fa-trash-o fa-lg"></i>
+            <i className="fa fa-sign-in fa-lg"></i>
+          </td>
         </tr>
       );
     };
     return (
-      <Table className="TableOfClients" size="md">
+      <Table className="TableOfClients" hover size="md">
         <thead>
           <tr>
             <th>Pet Name</th>
@@ -51,11 +56,13 @@ class TableOfClients extends React.Component {
             <th>Phone Number</th>
             <th>Pet Behavior</th>
             <th>Fired Client</th>
+            <th>Last Time In</th>
             <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>{clientData.map(renderClient)}</tbody>
+        
       </Table>
     );
   }
