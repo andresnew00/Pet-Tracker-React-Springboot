@@ -1,35 +1,9 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-import Axios from "axios";
-
 class TableOfClients extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clientData: [
-        {
-          petId: "",
-          clientName: "",
-          petName: "",
-          phoneNumber: "",
-          lastTime: "",
-          behavior: "",
-          banned: "",
-        },
-      ],
-    };
-  }
-
-  componentDidMount() {
-    Axios.get("http://localhost:8080/pet/getAll").then((response) =>
-      this.setState({ clientData: response.data })
-    );
-  }
 
   render() {
-    const { clientData } = this.state;
-
     const renderClient = (client, index) => {
       return (
         <tr className="items" key={index}>
@@ -61,7 +35,7 @@ class TableOfClients extends React.Component {
           </tr>
         </thead>
 
-        <tbody>{clientData.map(renderClient)}</tbody>
+        <tbody>{ this.props.clientData.map(renderClient)}</tbody>
         
       </Table>
     );

@@ -21,7 +21,7 @@ class OrderNCreateBar extends React.Component {
             </Dropdown>
           </Col>
           <Col className="createButton">
-            <Button variant="primary">
+            <Button variant="primary" onClick={this.props.toggleCreateModal}>
               Create new Patient <i className="fa fa-plus"></i>{" "}
             </Button>{" "}
           </Col>
