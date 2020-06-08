@@ -27,6 +27,15 @@ class App extends React.Component {
       ],
       isOpen: false,
     };
+    const client = {
+      petId: this.state.petId,
+      clientName: this.state.clientName,
+      petName: this.state.petName,
+      phoneNumber: this.state.phoneNumber,
+      lastTime: this.state.lastTime,
+      behavior: this.state.behavior,
+      banned: this.state.banned,
+    };
   }
 
   componentDidMount() {
@@ -37,20 +46,19 @@ class App extends React.Component {
 
   handleOpenCreateModal() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   }
 
   render() {
-    
     return (
       <div className="App">
         <NavBar />
-        <OrderNCreateBar toggleCreateModal={this.handleOpenCreateModal}/>
+        <OrderNCreateBar toggleCreateModal={this.handleOpenCreateModal} />
         <TableOfClients clientData={this.state.clientData} />
         {this.state.isOpen ? (
-          <CreateModal />
-        ): null}
+          <CreateModal toggleCreateModal={this.handleOpenCreateModal} />
+        ) : null}
       </div>
     );
   }
