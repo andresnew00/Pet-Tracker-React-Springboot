@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import NavBar from "./components/NavBar";
 import OrderNCreateBar from "./components/OrderNCreateBar";
 import TableOfClients from "./components/TableOfClients";
@@ -26,15 +26,6 @@ class App extends React.Component {
         },
       ],
       isOpen: false,
-    };
-    const client = {
-      petId: this.state.petId,
-      clientName: this.state.clientName,
-      petName: this.state.petName,
-      phoneNumber: this.state.phoneNumber,
-      lastTime: this.state.lastTime,
-      behavior: this.state.behavior,
-      banned: this.state.banned,
     };
   }
 
