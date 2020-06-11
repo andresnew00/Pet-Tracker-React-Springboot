@@ -39,6 +39,14 @@ export default class CreateModal extends React.Component {
     });
   };
 
+  handleInputBooleanChange = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      [event.target.name]: (event.target.value === 'true'),
+    });
+  };
+
   render() {
     const { petName, clientName, phoneNumber, behavior } = this.state;
     return (
@@ -110,7 +118,7 @@ export default class CreateModal extends React.Component {
                     <Form.Control
                       as="select"
                       name="banned"
-                      onChange={this.handleInputChange}
+                      onChange={this.handleInputBooleanChange}
                     >
                       <option value={false}>No</option>
                       <option value={true}>Yes</option>
