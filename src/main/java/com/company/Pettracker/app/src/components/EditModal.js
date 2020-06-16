@@ -3,15 +3,15 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
 
-export default class CreateModal extends React.Component {
+export default class EditModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      petName: "",
-      clientName: "",
-      phoneNumber: "",
-      behavior: "",
-      banned: false,
+      petName: this.props.petName,
+      clientName: this.props.clientName,
+      phoneNumber: this.props.phoneNumber,
+      behavior: this.props.behavior,
+      banned: this.props.banned,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -55,10 +55,10 @@ export default class CreateModal extends React.Component {
           <div className="topBar">
             <Row>
               <Col>
-                <h2>Create New Patient</h2>
+                <h2>Edit Patient</h2>
               </Col>
               <Col className="closeButton">
-                <Button onClick={this.props.toggleCreateModal}>
+                <Button onClick={this.props.toggleEditModal}>
                   <i className="fa fa-close fa-lg"></i>
                 </Button>
               </Col>
@@ -119,6 +119,7 @@ export default class CreateModal extends React.Component {
                       as="select"
                       name="banned"
                       onChange={this.handleInputBooleanChange}
+                      value={this.props.banned}
                     >
                       <option value={false}>No</option>
                       <option value={true}>Yes</option>
@@ -128,7 +129,7 @@ export default class CreateModal extends React.Component {
               </Row>
               <div className="buttonbottom">
                 <Button justify-content-end variant="primary" type="submit">
-                  Create
+                  Submit
                 </Button>
               </div>
             </Form>

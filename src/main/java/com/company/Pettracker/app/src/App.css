@@ -181,7 +181,7 @@
 }
 
 .CreateModal .topBar {
-  border-bottom: 1px solid #C5C5C5;
+  border-bottom: 1px solid #c5c5c5;
   padding: 10px;
 }
 
@@ -207,5 +207,10 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.CheckInModal .yesButton {
+  background-color: #94618e;
+  border-color: #94618e;
 }
 /*# sourceMappingURL=App.css.map */

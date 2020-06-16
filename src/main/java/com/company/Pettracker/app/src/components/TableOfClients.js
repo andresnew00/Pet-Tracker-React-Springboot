@@ -1,8 +1,7 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-class TableOfClients extends React.Component {
-
+export default class TableOfClients extends React.Component {
   render() {
     const renderClient = (client, index) => {
       return (
@@ -14,9 +13,51 @@ class TableOfClients extends React.Component {
           <td>{client.banned.toString()}</td>
           <td>{client.lastTime}</td>
           <td>
-            <i className="fa fa-edit fa-lg"></i>
-            <i className="fa fa-trash-o fa-lg"></i>
-            <i className="fa fa-sign-in fa-lg"></i>
+            <i
+              className="fa fa-edit fa-lg"
+              onClick={() => {
+                this.props.selectClient(
+                  client.petId,
+                  client.clientName,
+                  client.petName,
+                  client.phoneNumber,
+                  client.lastTime,
+                  client.behavior,
+                  client.banned
+                );
+                this.props.toggleEdit();
+              }}
+            ></i>
+            <i
+              className="fa fa-trash-o fa-lg"
+              onClick={() => {
+                this.props.selectClient(
+                  client.petId,
+                  client.clientName,
+                  client.petName,
+                  client.phoneNumber,
+                  client.lastTime,
+                  client.behavior,
+                  client.banned
+                );
+                this.props.toggleDelete();
+              }}
+            ></i>
+            <i
+              className="fa fa-sign-in fa-lg"
+              onClick={() => {
+                this.props.selectClient(
+                  client.petId,
+                  client.clientName,
+                  client.petName,
+                  client.phoneNumber,
+                  client.lastTime,
+                  client.behavior,
+                  client.banned
+                );
+                this.props.toggleCheckIn();
+              }}
+            ></i>
           </td>
         </tr>
       );
@@ -35,22 +76,8 @@ class TableOfClients extends React.Component {
           </tr>
         </thead>
 
-        <tbody>{ this.props.clientData.map(renderClient)}</tbody>
-        
+        <tbody>{this.props.clientData.map(renderClient)}</tbody>
       </Table>
     );
   }
-
-  // const clientsArray = [];
-
-  // const [clients, setClients] = useState ([clientsArray])
-
-  // Axios.get("http://localhost:8080/pet/getAll").then((response) =>
-  //   response.data.find((element) => {
-  //     clientsArray.push(element);
-  //     console.log(clientsArray);
-  //   })
-  // );
 }
-
-export default TableOfClients;
