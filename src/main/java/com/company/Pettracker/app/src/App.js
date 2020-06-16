@@ -110,6 +110,7 @@ class App extends React.Component {
         {this.state.editIsOpen ? (
           <EditModal
             toggleEditModal={this.handleOpenEditModal}
+            clientId={this.state.selectedClientId}
             petName={this.state.selectedPetName}
             clientName={this.state.selectedClientName}
             phoneNumber={this.state.selectedPhoneNumber}

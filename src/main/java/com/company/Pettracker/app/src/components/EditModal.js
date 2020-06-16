@@ -17,17 +17,19 @@ export default class EditModal extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = (event, clientId) => {
     event.preventDefault();
 
     const data = this.state;
     console.log(data);
 
+    const url = "http://localhost:8080/pet/updatePet/" + clientId;
+
     axios
-      .post("http://localhost:8080/pet/newPet", data)
+      .put(url, data)
       .then((res) => console.log(res))
       .catch((error) => {
-        console.log(error.response.data.message);
+        console.log(error);
       });
   };
 
@@ -65,7 +67,10 @@ export default class EditModal extends React.Component {
             </Row>
           </div>
           <div className="modalContent">
-            <Form className="form" onSubmit={this.handleSubmit}>
+            <Form
+              className="form"
+              onSubmit={ event => this.handleSubmit(event, this.props.clientId)}
+            >
               <Row>
                 <Col>
                   <Form.Group>
