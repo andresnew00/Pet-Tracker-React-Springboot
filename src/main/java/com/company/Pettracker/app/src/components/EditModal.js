@@ -69,7 +69,9 @@ export default class EditModal extends React.Component {
           <div className="modalContent">
             <Form
               className="form"
-              onSubmit={ event => this.handleSubmit(event, this.props.clientId)}
+              onSubmit={(event) =>
+                this.handleSubmit(event, this.props.clientId)
+              }
             >
               <Row>
                 <Col>

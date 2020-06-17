@@ -62,6 +62,12 @@ export default class TableOfClients extends React.Component {
         </tr>
       );
     };
+    const filteredClientData = this.props.clientData.filter(
+      (client) => {
+        return client.petName.toLowerCase().indexOf(this.props.search) !== -1 || client.clientName.toLowerCase().indexOf(this.props.search) !== -1;
+      }
+    )
+
     return (
       <Table className="TableOfClients" hover size="md">
         <thead>
@@ -76,7 +82,7 @@ export default class TableOfClients extends React.Component {
           </tr>
         </thead>
 
-        <tbody>{this.props.clientData.map(renderClient)}</tbody>
+        <tbody>{filteredClientData.map(renderClient)}</tbody>
       </Table>
     );
   }

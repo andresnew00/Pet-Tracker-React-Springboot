@@ -61,7 +61,6 @@ public class PetInfoService {
     public PetInfo updatePet(PetInfo info, Integer id) {
         PetInfo petToModify = petInfoRepository.findById(id).orElseThrow(() -> new PetNotFoundException("Not pet found by the id of " + id));
         petToModify.setPetName(info.getPetName());
-        petToModify.setLastTime(info.getLastTime());
         petToModify.setBanned(info.isBanned());
         petToModify.setBehavior(info.getBehavior());
         petToModify.setClientName(info.getClientName());

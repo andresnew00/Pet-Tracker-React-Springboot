@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Form, FormControl } from "react-bootstrap";
 
 class NavBar extends React.Component {
   render() {
@@ -9,10 +9,7 @@ class NavBar extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button>
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </Button>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" value={this.props.search} onChange={this.props.updateSearch.bind(this)}/>
           </Form>
         </Navbar.Collapse>
       </Navbar>

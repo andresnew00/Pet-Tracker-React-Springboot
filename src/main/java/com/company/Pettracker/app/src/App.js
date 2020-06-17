@@ -35,6 +35,7 @@ class App extends React.Component {
       checkInIsOpen: false,
       deleteIsOpen: false,
       editIsOpen: false,
+      search: "",
     };
   }
 
@@ -92,12 +93,19 @@ class App extends React.Component {
     });
   };
 
+  updateSearch = (event) => {
+    this.setState({
+      search: event.target.value,
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <NavBar search={this.state.search} updateSearch={this.updateSearch} />
         <OrderNCreateBar toggleCreateModal={this.handleOpenCreateModal} />
         <TableOfClients
+          search={this.state.search}
           clientData={this.state.clientData}
           selectClient={this.getClient}
           toggleCheckIn={this.handleOpenCheckInModal}
