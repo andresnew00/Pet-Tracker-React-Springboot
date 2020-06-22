@@ -10,13 +10,13 @@ class OrderNCreateBar extends React.Component {
             <h3>Order By:</h3>
             <Dropdown>
               <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                date
+                {this.props.order}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>Date Older - Newer</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>Date Newer - Older</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>Alphabetical</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>

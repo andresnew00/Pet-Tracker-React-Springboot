@@ -16,6 +16,7 @@ class App extends React.Component {
 
     this.handleOpenCreateModal = this.handleOpenCreateModal.bind(this);
     this.handleOpenEditModal = this.handleOpenEditModal.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
 
     this.getClient = this.getClient.bind(this);
 
@@ -36,6 +37,7 @@ class App extends React.Component {
       deleteIsOpen: false,
       editIsOpen: false,
       search: "",
+      orderOfitems: "Date Older - Newer",
     };
   }
 
@@ -99,12 +101,51 @@ class App extends React.Component {
     });
   };
 
+  changeOrder = (event) => {
+    this.setState(
+      {
+        orderOfitems: event.target.text,
+      },
+      this.updateListOfClients
+    );
+  };
+
+  updateListOfClients = () => {
+    switch (this.state.orderOfitems) {
+      case "Alphabetical":
+        this.setState({
+          clientData: this.state.clientData.sort(
+            (a, b) => (a.petName > b.petName) * 2 - 1
+          ),
+        });
+        break;
+      case "Date Newer - Older":
+        this.setState({
+          clientData: this.state.clientData.sort(
+            (a, b) => (a.lastTime < b.lastTime) * 2 - 1
+          ),
+        });
+        break;
+      default:
+        this.setState({
+          clientData: this.state.clientData.sort(
+            (a, b) => (a.lastTime > b.lastTime) * 2 - 1
+          ),
+        });
+    }
+  };
+
   render() {
     return (
       <div className="App">
         <NavBar search={this.state.search} updateSearch={this.updateSearch} />
-        <OrderNCreateBar toggleCreateModal={this.handleOpenCreateModal} />
+        <OrderNCreateBar
+          changeOrder={this.changeOrder}
+          order={this.state.orderOfitems}
+          toggleCreateModal={this.handleOpenCreateModal}
+        />
         <TableOfClients
+          order={this.state.orderOfitems}
           search={this.state.search}
           clientData={this.state.clientData}
           selectClient={this.getClient}
