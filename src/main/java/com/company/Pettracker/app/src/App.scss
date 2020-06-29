@@ -153,6 +153,12 @@ $darker-beige: #d6c0ac;
     display: flex;
     justify-content: flex-end;
   }
+  .error-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
 }
 
 .CheckInModal {

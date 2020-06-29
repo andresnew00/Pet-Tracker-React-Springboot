@@ -32,7 +32,7 @@ class App extends React.Component {
           banned: "",
         },
       ],
-      createIsOpen: false,
+      createIsOpen: true,
       checkInIsOpen: false,
       deleteIsOpen: false,
       editIsOpen: false,

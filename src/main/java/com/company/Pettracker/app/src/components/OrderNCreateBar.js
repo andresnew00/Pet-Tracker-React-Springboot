@@ -14,9 +14,15 @@ class OrderNCreateBar extends React.Component {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={this.props.changeOrder}>Date Older - Newer</Dropdown.Item>
-                <Dropdown.Item onClick={this.props.changeOrder}>Date Newer - Older</Dropdown.Item>
-                <Dropdown.Item onClick={this.props.changeOrder}>Alphabetical</Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>
+                  Date Older - Newer
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>
+                  Date Newer - Older
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.props.changeOrder}>
+                  Alphabetical
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
