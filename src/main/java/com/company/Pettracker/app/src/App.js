@@ -154,7 +154,7 @@ class App extends React.Component {
           toggleEdit={this.handleOpenEditModal}
         />
         {this.state.createIsOpen ? (
-          <CreateModal toggleCreateModal={this.handleOpenCreateModal} />
+          <CreateModal toggleCreateModal={this.handleOpenCreateModal} getAllClients={this.getAllClients} />
         ) : null}
         {this.state.editIsOpen ? (
           <EditModal

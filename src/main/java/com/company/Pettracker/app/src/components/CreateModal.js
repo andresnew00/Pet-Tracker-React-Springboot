@@ -1,6 +1,5 @@
 import React from "react";
-import { Form, Button, Row, Col, Modal } from "react-bootstrap";
-import SuccessCreationModal from "./SuccessCreationModal";
+import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 
 import axios from "axios";
 
@@ -14,7 +13,7 @@ const initialState = {
   clientNameError: "",
   phoneNumberError: "",
   behaviorError: "",
-  showModal: false,
+  show: false,
 };
 
 export default class CreateModal extends React.Component {
@@ -23,8 +22,6 @@ export default class CreateModal extends React.Component {
     this.state = initialState;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
 
   validateForm = () => {
@@ -88,20 +85,22 @@ export default class CreateModal extends React.Component {
 
       console.log(clientInfo);
 
-      // axios
-      //   .post("http://localhost:8080/pet/newPet", clientInfo)
-      //   .then((res) => console.log(res))
-      //   .catch((error) => {
-      //     console.log(error.response.data.message);
-      //   });
-      //TODO confirm submit of form
-      this.handleShow();
-      console.log(this.state.showModal);
+      axios
+        .post("http://localhost:8080/pet/newPet", clientInfo)
+        .then((res) => console.log(res))
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+
       //clear form
       this.setState(initialState);
+
+      //update client list
+      this.props.getAllClients();
+
+      //alert popup
+      this.setState({ show: true });
     }
-    // const data = this.state;
-    //   console.log(data);
   };
 
   handleInputChange = (event) => {
@@ -120,18 +119,6 @@ export default class CreateModal extends React.Component {
     });
   };
 
-  //TODO PLAYGROUND
-
-  handleClose = () => {
-    this.setState({ showModal: false})
-    console.log(this.state.showModal)
-  }
-
-  handleShow = () => {
-    this.setState({ showModal: true })
-    console.log(this.state.showModal)
-  }
-
   render() {
     const {
       petName,
@@ -142,10 +129,6 @@ export default class CreateModal extends React.Component {
     } = this.state;
     return (
       <div className="CreateModal">
-        {/* <SuccessCreationModal
-          show={this.state.showModal}
-          handleShow={() => this.handleShow}
-        /> */}
         <section>
           <div className="topBar">
             <Row>
@@ -168,26 +151,6 @@ export default class CreateModal extends React.Component {
             >
               <Row>
                 <Col>
-                  <Button variant="primary" onClick={this.state.handleShow}>
-                    Launch demo modal
-                  </Button>
-
-                  <Modal show={this.state.showModal} onHide={this.state.handleClose}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      Woohoo, you're reading this text in a modal!
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={this.state.handleClose}>
-                        Close
-                      </Button>
-                      <Button variant="primary" onClick={this.state.handleClose}>
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
                   <Form.Group>
                     <Form.Label>Pet Name</Form.Label>
                     <Form.Control
@@ -196,6 +159,7 @@ export default class CreateModal extends React.Component {
                       value={petName}
                       placeholder="Pet Name"
                       onChange={this.handleInputChange}
+                      autocomplete="off"
                     />
                     <div className="error-message">
                       {this.state.petNameError}
@@ -210,6 +174,7 @@ export default class CreateModal extends React.Component {
                       placeholder="Client Name"
                       value={clientName}
                       onChange={this.handleInputChange}
+                      autocomplete="off"
                     />
                     <div className="error-message">
                       {this.state.clientNameError}
@@ -224,6 +189,7 @@ export default class CreateModal extends React.Component {
                       placeholder="Phone Number"
                       value={phoneNumber}
                       onChange={this.handleInputChange}
+                      autocomplete="off"
                     />
                     <div className="error-message">
                       {this.state.phoneNumberError}
@@ -245,6 +211,7 @@ export default class CreateModal extends React.Component {
                       placeholder="Pet Behavior"
                       value={behavior}
                       onChange={this.handleInputChange}
+                      autocomplete="off"
                     />
                     <div className="error-message">
                       {this.state.behaviorError}
@@ -259,6 +226,7 @@ export default class CreateModal extends React.Component {
                       as="select"
                       name="banned"
                       onChange={this.handleInputBooleanChange}
+                      autocomplete="off"
                     >
                       <option value={false}>No</option>
                       <option value={true}>Yes</option>
@@ -266,6 +234,14 @@ export default class CreateModal extends React.Component {
                   </Form.Group>
                 </Col>
               </Row>
+              <Alert
+                show={this.state.show}
+                variant={"success"}
+                onClose={() => this.setState({ show: false })}
+                dismissible
+              >
+                Pet has been successfully saved!
+              </Alert>
               <div className="buttonbottom">
                 <Button justify-content-end variant="primary" type="submit">
                   Create
