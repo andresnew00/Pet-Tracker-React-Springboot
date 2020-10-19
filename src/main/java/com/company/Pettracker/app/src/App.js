@@ -32,7 +32,7 @@ class App extends React.Component {
           banned: "",
         },
       ],
-      createIsOpen: true,
+      createIsOpen: false,
       checkInIsOpen: false,
       deleteIsOpen: false,
       editIsOpen: false,
@@ -154,7 +154,10 @@ class App extends React.Component {
           toggleEdit={this.handleOpenEditModal}
         />
         {this.state.createIsOpen ? (
-          <CreateModal toggleCreateModal={this.handleOpenCreateModal} getAllClients={this.getAllClients} />
+          <CreateModal
+            toggleCreateModal={this.handleOpenCreateModal}
+            getAllClients={this.getAllClients}
+          />
         ) : null}
         {this.state.editIsOpen ? (
           <EditModal
@@ -174,6 +177,7 @@ class App extends React.Component {
           petName={this.state.selectedPetName}
           clientPhoneNumber={this.state.selectedPhoneNumber}
           onHide={this.handleOpenCheckInModal}
+          getAllClients={this.getAllClients}
         />
         <DeleteModal
           showModal={this.state.deleteIsOpen}

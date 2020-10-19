@@ -13,6 +13,8 @@ export default class CheckInModal extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+    
+    this.props.getAllClients();
   };
 
   render() {
@@ -37,7 +39,7 @@ export default class CheckInModal extends React.Component {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="yesButton" onClick={() => {this.updateLastime(this.props.clientId)}}>
+          <Button className="yesButton" onClick={() => {this.updateLastime(this.props.clientId) ; this.props.onHide();}}>
             Yes
           </Button>
           <Button onClick={this.props.onHide}>No</Button>
