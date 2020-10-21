@@ -45,6 +45,7 @@ class App extends React.Component {
     this.getAllClients();
   }
 
+  
   getAllClients = () => {
     Axios.get("http://localhost:8080/pet/getAll").then((response) =>
       this.setState({ clientData: response.data })
@@ -186,6 +187,8 @@ class App extends React.Component {
           petName={this.state.selectedPetName}
           clientPhoneNumber={this.state.selectedPhoneNumber}
           onHide={this.handleOpenDeleteModal}
+          getAllClients={this.getAllClients}
+          clientData={this.state.clientData}
         />
       </div>
     );

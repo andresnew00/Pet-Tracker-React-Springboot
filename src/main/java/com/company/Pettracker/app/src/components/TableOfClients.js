@@ -62,12 +62,14 @@ export default class TableOfClients extends React.Component {
         </tr>
       );
     };
-    const filteredClientData = this.props.clientData.filter(
-      (client) => {
-        return client.petName.toLowerCase().indexOf(this.props.search) !== -1 || client.clientName.toLowerCase().indexOf(this.props.search) !== -1;
-      }
-    )
+    const filteredClientData = this.props.clientData.filter((client) => {
+      return (
+        client.petName.toLowerCase().indexOf(this.props.search) !== -1 ||
+        client.clientName.toLowerCase().indexOf(this.props.search) !== -1
+      );
+    });
 
+    console.log(this.props.clientData.length);
     return (
       <Table className="TableOfClients" hover size="md">
         <thead>
@@ -81,8 +83,14 @@ export default class TableOfClients extends React.Component {
             <th>Actions</th>
           </tr>
         </thead>
-
-        <tbody>{filteredClientData.map(renderClient)}</tbody>
+        {this.props.clientData.length === 0 || filteredClientData.length === 0 ? (
+          <tbody>
+            {" "}
+            <div className="NoClients"> No clients to show</div>
+          </tbody>
+        ) : (
+          <tbody>{filteredClientData.map(renderClient)}</tbody>
+        )}
       </Table>
     );
   }

@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 
 export default class DeleteModal extends React.Component {
-  deleteClient( clientId ) {
+  deleteClient = ( clientId ) => {
     const url = "http://localhost:8080/pet/deletePet/" + clientId;
 
     axios
@@ -14,6 +14,11 @@ export default class DeleteModal extends React.Component {
         console.log(error);
       });
   };
+
+  deleteNClose = () => {
+    this.deleteClient(this.props.clientId);
+    this.props.onHide();
+  }
 
   render() {
     return (
@@ -36,7 +41,7 @@ export default class DeleteModal extends React.Component {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="yesButton" onClick={() => {this.deleteClient(this.props.clientId)}}>
+          <Button className="yesButton" onClick={this.deleteNClose}>
             Yes
           </Button>
           <Button onClick={this.props.onHide}>No</Button>
