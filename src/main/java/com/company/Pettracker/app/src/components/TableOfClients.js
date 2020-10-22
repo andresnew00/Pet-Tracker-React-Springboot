@@ -69,7 +69,6 @@ export default class TableOfClients extends React.Component {
       );
     });
 
-    console.log(this.props.clientData.length);
     return (
       <Table className="TableOfClients" hover size="md">
         <thead>

@@ -8,6 +8,7 @@ import DeleteModal from "./components/DeleteModal";
 import EditModal from "./components/EditModal";
 
 import Axios from "axios";
+import axios from "axios";
 import "./App.css";
 
 class App extends React.Component {
@@ -45,7 +46,6 @@ class App extends React.Component {
     this.getAllClients();
   }
 
-  
   getAllClients = () => {
     Axios.get("http://localhost:8080/pet/getAll").then((response) =>
       this.setState({ clientData: response.data })
@@ -109,6 +109,41 @@ class App extends React.Component {
       },
       this.updateListOfClients
     );
+  };
+
+  deleteClient = (clientId) => {
+    const url = "http://localhost:8080/pet/deletePet/" + clientId;
+
+    // state, before delete anything
+    const currentClients = this.state.clientData;
+
+    // Remove deleted item from state.
+    this.setState({
+      clientData: currentClients.filter(clients => clients.petId !== clientId),
+    });
+
+    axios
+      .delete(url)
+      .then(response => {
+        if (response.status === 'error') {
+          // Oops, something went wrong. Let's get that deleted Id back.
+          this.setState({
+            clientData: currentClients,
+          });
+
+          // Show Error message here.
+        } else {
+
+          // Delete successfully, do nothing.
+          // Because we already remove the deleted id from state.
+
+          // Show success message here.
+          
+          //TODO CREATE A Message on screen to show successful delete 
+          console.log("Pet is bye bye")
+
+        }
+      });
   };
 
   updateListOfClients = () => {
@@ -175,6 +210,7 @@ class App extends React.Component {
           showModal={this.state.checkInIsOpen}
           clientId={this.state.selectedClientId}
           clientName={this.state.selectedClientName}
+          clientLastTime={this.state.selectedLastTime}
           petName={this.state.selectedPetName}
           clientPhoneNumber={this.state.selectedPhoneNumber}
           onHide={this.handleOpenCheckInModal}
@@ -187,8 +223,7 @@ class App extends React.Component {
           petName={this.state.selectedPetName}
           clientPhoneNumber={this.state.selectedPhoneNumber}
           onHide={this.handleOpenDeleteModal}
-          getAllClients={this.getAllClients}
-          clientData={this.state.clientData}
+          deleteClient={this.deleteClient}
         />
       </div>
     );

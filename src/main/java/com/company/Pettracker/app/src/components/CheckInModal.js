@@ -13,8 +13,6 @@ export default class CheckInModal extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-    
-    this.props.getAllClients();
   };
 
   render() {

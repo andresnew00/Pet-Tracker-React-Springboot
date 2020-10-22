@@ -1,22 +1,13 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
-import axios from "axios";
+
 
 export default class DeleteModal extends React.Component {
-  deleteClient = ( clientId ) => {
-    const url = "http://localhost:8080/pet/deletePet/" + clientId;
-
-    axios
-      .delete(url)
-      .then((res) => console.log(res))
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  
 
   deleteNClose = () => {
-    this.deleteClient(this.props.clientId);
+    this.props.deleteClient(this.props.clientId);
     this.props.onHide();
   }
 
