@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface PetInfoRepository extends JpaRepository<PetInfo, Integer> {
     /**
      * finds pets by their name (including the ones that share the same name)
