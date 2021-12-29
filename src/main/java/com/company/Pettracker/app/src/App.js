@@ -21,6 +21,8 @@ export default function App() {
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
 
+  const [updateList, setUpdateList] = useState(0);
+
   const [search, setSearch] = useState("");
   const [orderOfItems, setOrderOfItems] = useState("Date Older - Newer");
 
@@ -144,6 +146,8 @@ export default function App() {
       {createIsOpen ? (
           <CreateModal
             toggleCreateModal={handleOpenCreateModal}
+            setUpdateList={setUpdateList}
+            updateList={updateList}
           />
         ) : null}
         {editIsOpen ? (
