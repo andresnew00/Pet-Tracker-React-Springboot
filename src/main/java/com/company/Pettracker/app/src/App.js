@@ -15,7 +15,7 @@ import "./App.css";
 export default function App() {
   const [clientData, setClientData] = useState([]);
 
-  const [createIsOpen, setCreateisOpen] = useState(false);
+  const [createIsOpen, setCreateIsOpen] = useState(false);
   const [checkInIsOpen, setCheckinIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
@@ -30,11 +30,84 @@ export default function App() {
 
   console.log(clientData);
 
-  
+  const handleOpenCreateModal = () => {
+    setCreateIsOpen(!createIsOpen);
+  };
+
+  const handleCheckInModal = () => {
+    setCheckinIsOpen(!checkInIsOpen);
+  };
+
+  const handleDeleteModal = () => {
+    setDeleteIsOpen(!deleteIsOpen);
+  };
+
+  const handleEditModal = () => {
+    setEditIsOpen(!editIsOpen);
+  };
+
+  // this works!
+  const updateSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const updateListOfClients = () => {
+    switch (orderOfItems) {
+      case "Alphabetical":
+        setClientData(
+          clientData.sort((a, b) => (a.petName > b.petName) * 2 - 1)
+        );
+        break;
+      case "Date Newer - Older":
+        setClientData(
+          clientData.sort((a, b) => (a.lastTime < b.lastTime) * 2 - 1)
+        );
+        break;
+      default:
+        setClientData(
+          clientData.sort((a, b) => (a.lastTime > b.lastTime) * 2 - 1)
+        );
+    }
+  };
+
+  const changeOrder = (e) => {
+    setOrderOfItems(e.target.text);
+    updateListOfClients();
+  };
+
+  const deleteClient = (clientId) => {
+    const url = "http://localhost:8080/pet/deletePet/" + clientId;
+
+    // state, before delete anything
+    const currentClients = clientData;
+
+    // Remove deleted item from state.
+    setClientData(
+      currentClients.filter((clients) => clients.petId !== clientId)
+    );
+
+    Axios.delete(url).then((response) => {
+      if (response.status === "error") {
+        // Oops, something went wrong. Let's get that deleted Id back.
+        setClientData(currentClients);
+        // Show Error message here.
+      } else {
+        // Delete successfully, do nothing.
+        // Because we already remove the deleted id from state.
+
+        // Show success message here.
+        //TODO CREATE A Message on screen to show successful delete
+        console.log("Pet is bye bye");
+      }
+    });
+  };
 
   return (
     <div className="App">
-      {clientData.map(client => <li>{client.clientName}</li>)}
+      <NavBar search={search} updateSearch={updateSearch} />
+      {clientData.map((client) => (
+        <li>{client.clientName}</li>
+      ))}
     </div>
   );
 }
