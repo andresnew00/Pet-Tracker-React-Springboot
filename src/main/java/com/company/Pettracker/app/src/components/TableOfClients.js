@@ -2,10 +2,87 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 export default function TableOfClients(props) {
+  console.log(props.clientData.length);
   return (
-    <tr className="items">
-      <td>nothing</td>
-    </tr>
+    <Table className="TableOfClients" hover size="md">
+      <thead>
+        <tr>
+          <th>Pet Name</th>
+          <th>Client Name</th>
+          <th>Phone Number</th>
+          <th>Pet Behavior</th>
+          <th>Fired Client</th>
+          <th>Last Time In</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      {props.clientData.length === 0 ? (
+        <tbody>
+          {" "}
+          <div className="NoClients">No clients to show</div>
+        </tbody>
+      ) : (
+        <tbody>
+          {props.clientData.map((client) => (
+            <tr className="items" key={client.petId}>
+              <td>{client.petName}</td>
+              <td>{client.clientName}</td>
+              <td>{client.phoneNumber}</td>
+              <td>{client.behavior}</td>
+              <td>{client.banned.toString()}</td>
+              <td>{client.lastTime}</td>
+              <td>
+                <i
+                  className="fa fa-edit fa-lg"
+                  onClick={() => {
+                    props.updateSelectedClient(
+                      client.petId,
+                      client.clientName,
+                      client.petName,
+                      client.phoneNumber,
+                      client.lastTime,
+                      client.behavior,
+                      client.banned
+                    );
+                    props.toggleEdit();
+                  }}
+                ></i>
+                <i
+                  className="fa fa-trash-o fa-lg"
+                  onClick={() => {
+                    props.updateSelectedClient(
+                      client.petId,
+                      client.clientName,
+                      client.petName,
+                      client.phoneNumber,
+                      client.lastTime,
+                      client.behavior,
+                      client.banned
+                    );
+                    props.toggleDelete();
+                  }}
+                ></i>
+                <i
+                  className="fa fa-sign-in fa-lg"
+                  onClick={() => {
+                    props.updateSelectedClient(
+                      client.petId,
+                      client.clientName,
+                      client.petName,
+                      client.phoneNumber,
+                      client.lastTime,
+                      client.behavior,
+                      client.banned
+                    );
+                    props.toggleCheckIn();
+                  }}
+                ></i>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      )}
+    </Table>
   );
 }
 

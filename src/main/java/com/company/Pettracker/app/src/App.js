@@ -14,11 +14,13 @@ import "./App.css";
 
 export default function App() {
   const [clientData, setClientData] = useState([]);
+  const [selectedClient, setSelectedClient] = useState();
 
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [checkInIsOpen, setCheckinIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
+
   const [search, setSearch] = useState("");
   const [orderOfItems, setOrderOfItems] = useState("Date Older - Newer");
 
@@ -28,8 +30,7 @@ export default function App() {
     );
   }, []);
 
-  console.log(clientData);
-
+  // working!
   const handleOpenCreateModal = () => {
     setCreateIsOpen(!createIsOpen);
   };
@@ -51,6 +52,7 @@ export default function App() {
     setSearch(e.target.value);
   };
 
+  // working!
   const updateListOfClients = () => {
     switch (orderOfItems) {
       case "Alphabetical":
@@ -68,6 +70,26 @@ export default function App() {
           clientData.sort((a, b) => (a.lastTime > b.lastTime) * 2 - 1)
         );
     }
+  };
+
+  const updateSelectedClient = (
+    clientId,
+    clientName,
+    petName,
+    phoneNumber,
+    lastTime,
+    behavior,
+    banned
+  ) => {
+    setSelectedClient({
+      selectedClientId: clientId,
+      selectedClientName: clientName,
+      selectedPetName: petName,
+      selectedPhoneNumber: phoneNumber,
+      selectedLastTime: lastTime,
+      selectedBehavior: behavior,
+      selectedBanned: banned,
+    });
   };
 
   const changeOrder = (e) => {
@@ -105,9 +127,42 @@ export default function App() {
   return (
     <div className="App">
       <NavBar search={search} updateSearch={updateSearch} />
-      {clientData.map((client) => (
-        <li>{client.clientName}</li>
-      ))}
+      <OrderNCreateBar
+        changeOrder={changeOrder}
+        order={orderOfItems}
+        toggleCreateModal={handleOpenCreateModal}
+      />
+      <TableOfClients
+        order={orderOfItems}
+        search={search}
+        clientData={clientData}
+        updateSelectedClient={updateSelectedClient}
+        toggleCheckIn={handleCheckInModal}
+        toggleDelete={handleDeleteModal}
+        toggleEdit={handleEditModal}
+      />
+      {createIsOpen ? (
+          <CreateModal
+            toggleCreateModal={handleOpenCreateModal}
+          />
+        ) : null}
+        {editIsOpen ? (
+          <EditModal
+            toggleEditModal={handleEditModal}
+            selectedClient={selectedClient}
+          />
+        ) : null}
+        <CheckInModal
+          showModal={checkInIsOpen}
+          selectedClient={selectedClient}
+          onHide={handleCheckInModal}
+        />
+        <DeleteModal
+          showModal={deleteIsOpen}
+          selectedClient={selectedClient}
+          onHide={handleDeleteModal}
+          deleteClient={deleteClient}
+        />
     </div>
   );
 }
