@@ -70,16 +70,16 @@ export default function CreateModal(props) {
     const formIsValid = validateForm();
 
     if (formIsValid) {
-
       axios
         .post("http://localhost:8080/pet/newPet", newClient)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          //update list after adding new element
+          props.setUpdateList(!props.updateList);
+        })
         .catch((error) => {
           console.log(error.response.data.message);
         });
-
-      //update list after adding new element
-      props.setUpdateList(props.updateList + 1);
 
       //clear form
       // this.setState(initialState);
@@ -141,7 +141,7 @@ export default function CreateModal(props) {
                     value={newClient.petName}
                     placeholder="Pet Name"
                     onChange={handleInputChange}
-                    autocomplete="off"
+                    autoComplete="off"
                   />
                   <div className="error-message">{errors.petNameError}</div>
                 </Form.Group>

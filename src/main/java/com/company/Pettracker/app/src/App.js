@@ -21,16 +21,17 @@ export default function App() {
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
 
-  const [updateList, setUpdateList] = useState(0);
+  const [updateList, setUpdateList] = useState(false);
 
   const [search, setSearch] = useState("");
   const [orderOfItems, setOrderOfItems] = useState("Date Older - Newer");
 
   useEffect(() => {
-    Axios.get("http://localhost:8080/pet/getAll").then((response) =>
-      setClientData(response.data)
-    );
-  }, []);
+    Axios.get("http://localhost:8080/pet/getAll").then((response) => {
+      setClientData(response.data);
+      console.log("useEffect ran");
+    });
+  }, [updateList]);
 
   // working!
   const handleOpenCreateModal = () => {
@@ -144,29 +145,29 @@ export default function App() {
         toggleEdit={handleEditModal}
       />
       {createIsOpen ? (
-          <CreateModal
-            toggleCreateModal={handleOpenCreateModal}
-            setUpdateList={setUpdateList}
-            updateList={updateList}
-          />
-        ) : null}
-        {editIsOpen ? (
-          <EditModal
-            toggleEditModal={handleEditModal}
-            selectedClient={selectedClient}
-          />
-        ) : null}
-        <CheckInModal
-          showModal={checkInIsOpen}
-          selectedClient={selectedClient}
-          onHide={handleCheckInModal}
+        <CreateModal
+          toggleCreateModal={handleOpenCreateModal}
+          setUpdateList={setUpdateList}
+          updateList={updateList}
         />
-        <DeleteModal
-          showModal={deleteIsOpen}
+      ) : null}
+      {editIsOpen ? (
+        <EditModal
+          toggleEditModal={handleEditModal}
           selectedClient={selectedClient}
-          onHide={handleDeleteModal}
-          deleteClient={deleteClient}
         />
+      ) : null}
+      <CheckInModal
+        showModal={checkInIsOpen}
+        selectedClient={selectedClient}
+        onHide={handleCheckInModal}
+      />
+      <DeleteModal
+        showModal={deleteIsOpen}
+        selectedClient={selectedClient}
+        onHide={handleDeleteModal}
+        deleteClient={deleteClient}
+      />
     </div>
   );
 }
