@@ -15,6 +15,7 @@ export default function EditModal(props) {
       .then((res) => {
         console.log(res);
         props.setUpdateList(!props.updateList);
+        props.toggleEditModal();
       })
       .catch((error) => console.log(error));
   };
@@ -58,9 +59,9 @@ export default function EditModal(props) {
         <div className="modalContent">
           <Form
             className="form"
-            onSubmit={(event) =>
-              handleSubmit(event, props.selectedClient.petId)
-            }
+            onSubmit={(event) => {
+              handleSubmit(event, props.selectedClient.petId);
+            }}
           >
             <Row>
               <Col>

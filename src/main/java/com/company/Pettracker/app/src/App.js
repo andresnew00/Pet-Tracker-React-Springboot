@@ -14,7 +14,15 @@ import "./App.css";
 
 export default function App() {
   const [clientData, setClientData] = useState([]);
-  const [selectedClient, setSelectedClient] = useState();
+  const [selectedClient, setSelectedClient] = useState({
+    petId: "",
+    clientName: "",
+    petName: "",
+    phoneNumber: "",
+    lastTime: "",
+    behavior: "",
+    banned: false,
+  });
 
   const [createIsOpen, setCreateIsOpen] = useState(false);
   const [checkInIsOpen, setCheckInIsOpen] = useState(false);
@@ -119,7 +127,7 @@ export default function App() {
       } else {
         // Delete successfully, do nothing.
         // Because we already remove the deleted id from state.
-
+        setUpdateList(!updateList);
         // Show success message here.
         //TODO CREATE A Message on screen to show successful delete
         console.log("Pet is bye bye");
