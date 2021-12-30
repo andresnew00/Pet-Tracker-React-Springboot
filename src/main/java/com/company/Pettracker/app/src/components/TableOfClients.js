@@ -3,6 +3,14 @@ import { Table } from "react-bootstrap";
 
 export default function TableOfClients(props) {
   console.log(props.clientData.length);
+
+  const filteredClientData = props.clientData.filter((client) => {
+    return (
+      client.petName.toLowerCase().indexOf(props.search) !== -1 ||
+      client.clientName.toLowerCase().indexOf(props.search) !== -1
+    );
+  });
+
   return (
     <Table className="TableOfClients" hover size="md">
       <thead>
@@ -16,14 +24,14 @@ export default function TableOfClients(props) {
           <th>Actions</th>
         </tr>
       </thead>
-      {props.clientData.length === 0 ? (
+      {filteredClientData.length === 0 ? (
         <tbody>
           {" "}
           <div className="NoClients">No clients to show</div>
         </tbody>
       ) : (
         <tbody>
-          {props.clientData.map((client) => (
+          {filteredClientData.map((client) => (
             <tr className="items" key={client.petId}>
               <td>{client.petName}</td>
               <td>{client.clientName}</td>

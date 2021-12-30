@@ -17,7 +17,7 @@ export default function App() {
   const [selectedClient, setSelectedClient] = useState();
 
   const [createIsOpen, setCreateIsOpen] = useState(false);
-  const [checkInIsOpen, setCheckinIsOpen] = useState(false);
+  const [checkInIsOpen, setCheckInIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
 
@@ -39,7 +39,7 @@ export default function App() {
   };
 
   const handleCheckInModal = () => {
-    setCheckinIsOpen(!checkInIsOpen);
+    setCheckInIsOpen(!checkInIsOpen);
   };
 
   const handleDeleteModal = () => {
@@ -85,13 +85,13 @@ export default function App() {
     banned
   ) => {
     setSelectedClient({
-      selectedClientId: clientId,
-      selectedClientName: clientName,
-      selectedPetName: petName,
-      selectedPhoneNumber: phoneNumber,
-      selectedLastTime: lastTime,
-      selectedBehavior: behavior,
-      selectedBanned: banned,
+      petId: clientId,
+      clientName: clientName,
+      petName: petName,
+      phoneNumber: phoneNumber,
+      lastTime: lastTime,
+      behavior: behavior,
+      banned: banned,
     });
   };
 
@@ -140,6 +140,7 @@ export default function App() {
         search={search}
         clientData={clientData}
         updateSelectedClient={updateSelectedClient}
+        selectedClient={selectedClient}
         toggleCheckIn={handleCheckInModal}
         toggleDelete={handleDeleteModal}
         toggleEdit={handleEditModal}
@@ -154,19 +155,26 @@ export default function App() {
       {editIsOpen ? (
         <EditModal
           toggleEditModal={handleEditModal}
+          setSelectedClient={setSelectedClient}
           selectedClient={selectedClient}
+          setUpdateList={setUpdateList}
+          updateList={updateList}
         />
       ) : null}
       <CheckInModal
         showModal={checkInIsOpen}
         selectedClient={selectedClient}
         onHide={handleCheckInModal}
+        setUpdateList={setUpdateList}
+        updateList={updateList}
       />
       <DeleteModal
         showModal={deleteIsOpen}
         selectedClient={selectedClient}
         onHide={handleDeleteModal}
         deleteClient={deleteClient}
+        setUpdateList={setUpdateList}
+        updateList={updateList}
       />
     </div>
   );
