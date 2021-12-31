@@ -41,6 +41,10 @@ export default function App() {
   const [toastContent, setToastContent] = useState({
     toastTitle: "",
     toastContent: "",
+    toastColor: {
+      backgroundColor: "#dcffe4",
+      color: "black",
+    },
   });
 
   const [updateList, setUpdateList] = useState(false);
@@ -51,7 +55,6 @@ export default function App() {
   useEffect(() => {
     Axios.get("http://localhost:8080/pet/getAll").then((response) => {
       setClientData(response.data);
-      console.log("useEffect ran");
     });
   }, [updateList]);
 
@@ -124,7 +127,6 @@ export default function App() {
     return true;
   };
 
-
   // working!
   const updateListOfClients = () => {
     switch (orderOfItems) {
@@ -173,28 +175,33 @@ export default function App() {
   const deleteClient = (clientId) => {
     const url = "http://localhost:8080/pet/deletePet/" + clientId;
 
-    // state, before delete anything
-    const currentClients = clientData;
-
-    // Remove deleted item from state.
-    setClientData(
-      currentClients.filter((clients) => clients.petId !== clientId)
-    );
-
-    Axios.delete(url).then((response) => {
-      if (response.status === "error") {
-        // Oops, something went wrong. Let's get that deleted Id back.
-        setClientData(currentClients);
-        // Show Error message here.
-      } else {
-        // Delete successfully, do nothing.
-        // Because we already remove the deleted id from state.
+    Axios.delete(url)
+      .then((response) => {
         setUpdateList(!updateList);
-        // Show success message here.
-        //TODO CREATE A Message on screen to show successful delete
-        console.log("Pet is bye bye");
-      }
-    });
+        setToastContent({
+          toastTitle: `Client Deleted Successfully`,
+          toastContent: `${selectedClient.petName} has been deleted successfully`,
+          toastColor: {
+            backgroundColor: "#dcffe4",
+            color: "black",
+          },
+        });
+        handleDeleteModal();
+        toggleShowToast();
+      })
+      .catch((error) => {
+        // Show Error message here.
+        handleDeleteModal();
+        setToastContent({
+          toastTitle: "Error When Deleting The Client",
+          toastContent: "There was an error when deleting the client.",
+          toastColor: {
+            backgroundColor: "#FFCCCC",
+            color: "black",
+          },
+        });
+        toggleShowToast();
+      });
   };
 
   return (
@@ -215,13 +222,14 @@ export default function App() {
         toggleDelete={handleDeleteModal}
         toggleEdit={handleEditModal}
       />
-      <Toast show={showToast} onClose={toggleShowToast} delay={10000} autohide animation>
-        <Toast.Header
-          style={{
-            backgroundColor: "#dcffe4",
-            color: "black",
-          }}
-        >
+      <Toast
+        show={showToast}
+        onClose={toggleShowToast}
+        delay={10000}
+        autohide
+        animation
+      >
+        <Toast.Header style={toastContent.toastColor}>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
           <strong className="me-auto">{toastContent.toastTitle}</strong>
           <small>now</small>
@@ -252,25 +260,27 @@ export default function App() {
           errors={errors}
         />
       ) : null}
-      <CheckInModal
-        showModal={checkInIsOpen}
-        selectedClient={selectedClient}
-        onHide={handleCheckInModal}
-        setUpdateList={setUpdateList}
-        updateList={updateList}
-        setToastContent={setToastContent}
-        toggleShowToast={toggleShowToast}
-      />
-      <DeleteModal
-        showModal={deleteIsOpen}
-        selectedClient={selectedClient}
-        onHide={handleDeleteModal}
-        deleteClient={deleteClient}
-        setUpdateList={setUpdateList}
-        updateList={updateList}
-        setToastContent={setToastContent}
-        toggleShowToast={toggleShowToast}
-      />
+      {checkInIsOpen ? (
+        <CheckInModal
+          showModal={checkInIsOpen}
+          selectedClient={selectedClient}
+          onHide={handleCheckInModal}
+          setUpdateList={setUpdateList}
+          updateList={updateList}
+          setToastContent={setToastContent}
+          toggleShowToast={toggleShowToast}
+        />
+      ) : null}
+      {deleteIsOpen ? (
+        <DeleteModal
+          showModal={deleteIsOpen}
+          selectedClient={selectedClient}
+          deleteClient={deleteClient}
+          setUpdateList={setUpdateList}
+          updateList={updateList}
+          handleDeleteModal={handleDeleteModal}
+        />
+      ) : null} 
     </div>
   );
 }

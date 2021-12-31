@@ -2,14 +2,8 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
 export default function DeleteModal(props) {
-  const deleteNClose = () => {
-    props.setToastContent({
-      toastTitle: `Client Deleted Successfully`,
-      toastContent: `${props.selectedClient.petName} has been deleted successfully`
-    });
-    props.deleteClient(props.selectedClient.petId);
-    props.onHide();
-    props.toggleShowToast();
+  const deleteNClose = (petId) => {
+    props.deleteClient(petId);
   };
 
   return (
@@ -33,10 +27,10 @@ export default function DeleteModal(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="yesButton" onClick={deleteNClose}>
+        <Button className="yesButton" onClick={() => deleteNClose(props.selectedClient.petId)}>
           Yes
         </Button>
-        <Button onClick={props.onHide}>No</Button>
+        <Button onClick={props.handleDeleteModal}>No</Button>
       </Modal.Footer>
     </Modal>
   );

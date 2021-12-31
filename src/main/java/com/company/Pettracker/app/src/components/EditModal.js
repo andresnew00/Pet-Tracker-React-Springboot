@@ -16,7 +16,6 @@ export default function EditModal(props) {
       axios
         .put(url, props.selectedClient)
         .then((res) => {
-          console.log(res);
           props.setUpdateList(!props.updateList);
           props.toggleEditModal();
           props.setToastContent({
@@ -25,7 +24,18 @@ export default function EditModal(props) {
           });
           props.toggleShowToast();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          props.toggleEditModal();
+          props.setToastContent({
+            toastTitle: "Error When Editing The Client",
+            toastContent: error.response.data.message,
+            toastColor: {
+              backgroundColor: "#FFCCCC",
+              color: "black",
+            },
+          });
+          props.toggleShowToast();
+        });
     }
   };
 

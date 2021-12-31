@@ -21,18 +21,26 @@ export default function CreateModal(props) {
       axios
         .post("http://localhost:8080/pet/newPet", newClient)
         .then((res) => {
-          console.log(res);
           //update list after adding new element
           props.setUpdateList(!props.updateList);
           props.toggleCreateModal();
           props.setToastContent({
             toastTitle: `Client Created Successfully`,
-            toastContent: `${newClient.petName} has been created successfully`
+            toastContent: `${newClient.petName} has been created successfully`,
           });
           props.toggleShowToast();
         })
         .catch((error) => {
-          console.log(error.response.data.message);
+          props.toggleCreateModal();
+          props.setToastContent({
+            toastTitle: "Error When Adding New Client",
+            toastContent: error.response.data.message,
+            toastColor: {
+              backgroundColor: "#FFCCCC",
+              color: "black",
+            },
+          });
+          props.toggleShowToast();
         });
     }
   };
@@ -88,7 +96,9 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autoComplete="off"
                   />
-                  <div className="error-message">{props.errors.petNameError}</div>
+                  <div className="error-message">
+                    {props.errors.petNameError}
+                  </div>
                 </Form.Group>
 
                 <Form.Group>
@@ -101,7 +111,9 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{props.errors.clientNameError}</div>
+                  <div className="error-message">
+                    {props.errors.clientNameError}
+                  </div>
                 </Form.Group>
 
                 <Form.Group>
@@ -114,7 +126,9 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{props.errors.phoneNumberError}</div>
+                  <div className="error-message">
+                    {props.errors.phoneNumberError}
+                  </div>
                   <Form.Text
                     className="text-muted"
                     onChange={handleInputChange}
@@ -133,7 +147,9 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{props.errors.behaviorError}</div>
+                  <div className="error-message">
+                    {props.errors.behaviorError}
+                  </div>
                 </Form.Group>
               </Col>
 
