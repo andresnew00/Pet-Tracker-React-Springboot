@@ -3,8 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 
 export default function DeleteModal(props) {
   const deleteNClose = () => {
+    props.setToastContent({
+      toastTitle: `Client Deleted Successfully`,
+      toastContent: `${props.selectedClient.petName} has been deleted successfully`
+    });
     props.deleteClient(props.selectedClient.petId);
     props.onHide();
+    props.toggleShowToast();
   };
 
   return (

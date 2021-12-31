@@ -6,6 +6,7 @@ import CreateModal from "./components/CreateModal";
 import CheckInModal from "./components/CheckInModal";
 import DeleteModal from "./components/DeleteModal";
 import EditModal from "./components/EditModal";
+import Toast from "react-bootstrap/Toast";
 
 import { useState, useEffect } from "react";
 
@@ -16,8 +17,8 @@ export default function App() {
   const [clientData, setClientData] = useState([]);
   const [selectedClient, setSelectedClient] = useState({
     petId: "",
-    clientName: "",
     petName: "",
+    clientName: "",
     phoneNumber: "",
     lastTime: "",
     behavior: "",
@@ -28,6 +29,19 @@ export default function App() {
   const [checkInIsOpen, setCheckInIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
+
+  const [errors, setErrors] = useState({
+    petNameError: "",
+    clientNameError: "",
+    phoneNumberError: "",
+    behaviorError: "",
+  });
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastContent, setToastContent] = useState({
+    toastTitle: "",
+    toastContent: "",
+  });
 
   const [updateList, setUpdateList] = useState(false);
 
@@ -63,6 +77,54 @@ export default function App() {
     setSearch(e.target.value);
   };
 
+  const toggleShowToast = () => setShowToast(!showToast);
+
+  const validateForm = (client) => {
+    let petNameError = "";
+    let clientNameError = "";
+    let phoneNumberError = "";
+    let behaviorError = "";
+
+    if (!client.petName.match(/^([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+$/)) {
+      petNameError = "Pet name should only contain valid characters.";
+    }
+
+    if (client.petName.length > 15) {
+      petNameError = "Pet's name can not be longer than 15 characters";
+    }
+
+    if (client.clientName.length < 2 || client.clientName.length > 30) {
+      clientNameError =
+        "Name should be more than 2 characters and less than 30";
+    }
+
+    if (!client.clientName.match(/^([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+$/)) {
+      clientNameError = "Client name should only include letters";
+    }
+
+    if (!client.phoneNumber.match(/^((\d{3})\s)?(\d{7})$/)) {
+      phoneNumberError =
+        "format should be area code, space then 7 digits ex. 000 0000000";
+    }
+
+    if (!client.behavior.match(/^[a-zA-Z]+$/)) {
+      behaviorError = "this field should only contain letters and no spaces";
+    }
+
+    if (petNameError || clientNameError || phoneNumberError || behaviorError) {
+      setErrors({
+        petNameError: petNameError,
+        clientNameError: clientNameError,
+        phoneNumberError: phoneNumberError,
+        behaviorError: behaviorError,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+
   // working!
   const updateListOfClients = () => {
     switch (orderOfItems) {
@@ -85,8 +147,8 @@ export default function App() {
 
   const updateSelectedClient = (
     clientId,
-    clientName,
     petName,
+    clientName,
     phoneNumber,
     lastTime,
     behavior,
@@ -94,8 +156,8 @@ export default function App() {
   ) => {
     setSelectedClient({
       petId: clientId,
-      clientName: clientName,
       petName: petName,
+      clientName: clientName,
       phoneNumber: phoneNumber,
       lastTime: lastTime,
       behavior: behavior,
@@ -153,11 +215,28 @@ export default function App() {
         toggleDelete={handleDeleteModal}
         toggleEdit={handleEditModal}
       />
+      <Toast show={showToast} onClose={toggleShowToast} delay={10000} autohide animation>
+        <Toast.Header
+          style={{
+            backgroundColor: "#dcffe4",
+            color: "black",
+          }}
+        >
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">{toastContent.toastTitle}</strong>
+          <small>now</small>
+        </Toast.Header>
+        <Toast.Body>{toastContent.toastContent}</Toast.Body>
+      </Toast>
       {createIsOpen ? (
         <CreateModal
           toggleCreateModal={handleOpenCreateModal}
           setUpdateList={setUpdateList}
           updateList={updateList}
+          setToastContent={setToastContent}
+          toggleShowToast={toggleShowToast}
+          validateForm={validateForm}
+          errors={errors}
         />
       ) : null}
       {editIsOpen ? (
@@ -167,6 +246,10 @@ export default function App() {
           selectedClient={selectedClient}
           setUpdateList={setUpdateList}
           updateList={updateList}
+          setToastContent={setToastContent}
+          toggleShowToast={toggleShowToast}
+          validateForm={validateForm}
+          errors={errors}
         />
       ) : null}
       <CheckInModal
@@ -175,6 +258,8 @@ export default function App() {
         onHide={handleCheckInModal}
         setUpdateList={setUpdateList}
         updateList={updateList}
+        setToastContent={setToastContent}
+        toggleShowToast={toggleShowToast}
       />
       <DeleteModal
         showModal={deleteIsOpen}
@@ -183,6 +268,8 @@ export default function App() {
         deleteClient={deleteClient}
         setUpdateList={setUpdateList}
         updateList={updateList}
+        setToastContent={setToastContent}
+        toggleShowToast={toggleShowToast}
       />
     </div>
   );

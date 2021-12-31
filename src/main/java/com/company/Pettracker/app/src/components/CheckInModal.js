@@ -13,6 +13,11 @@ export default function CheckInModal(props) {
       .then((res) => {
         console.log(res)
         props.setUpdateList(!props.updateList);
+        props.setToastContent({
+          toastTitle: `Client Checked in Successfully`,
+          toastContent: `${props.selectedClient.petName} has checked in successfully`
+        });
+        props.toggleShowToast();
       })
       .catch((error) => {
         console.log(error);

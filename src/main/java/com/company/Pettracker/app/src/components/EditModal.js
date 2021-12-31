@@ -10,14 +10,23 @@ export default function EditModal(props) {
 
     const url = `http://localhost:8080/pet/updatePet/${clientId}`;
 
-    axios
-      .put(url, props.selectedClient)
-      .then((res) => {
-        console.log(res);
-        props.setUpdateList(!props.updateList);
-        props.toggleEditModal();
-      })
-      .catch((error) => console.log(error));
+    const formIsValid = props.validateForm(props.selectedClient);
+
+    if (formIsValid) {
+      axios
+        .put(url, props.selectedClient)
+        .then((res) => {
+          console.log(res);
+          props.setUpdateList(!props.updateList);
+          props.toggleEditModal();
+          props.setToastContent({
+            toastTitle: `Client Edited Successfully`,
+            toastContent: `${props.selectedClient.petName} has been updated successfully`,
+          });
+          props.toggleShowToast();
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const handleInputChange = (event) => {
@@ -68,19 +77,25 @@ export default function EditModal(props) {
                 <Form.Group>
                   <Form.Label>Pet Name</Form.Label>
                   <Form.Control
-                    name="clientName"
-                    value={props.selectedClient.clientName}
+                    name="petName"
+                    value={props.selectedClient.petName}
                     onChange={handleInputChange}
                   />
+                  <div className="error-message">
+                    {props.errors.petNameError}
+                  </div>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Client Name</Form.Label>
                   <Form.Control
-                    name="petName"
-                    value={props.selectedClient.petName}
+                    name="clientName"
+                    value={props.selectedClient.clientName}
                     onChange={handleInputChange}
                   />
+                  <div className="error-message">
+                    {props.errors.clientNameError}
+                  </div>
                 </Form.Group>
 
                 <Form.Group>
@@ -96,6 +111,9 @@ export default function EditModal(props) {
                   >
                     Please add phone number in the following format 555 1117777
                   </Form.Text>
+                  <div className="error-message">
+                    {props.errors.phoneNumberError}
+                  </div>
                 </Form.Group>
 
                 <Form.Group>
@@ -105,6 +123,9 @@ export default function EditModal(props) {
                     value={props.selectedClient.behavior}
                     onChange={handleInputChange}
                   />
+                  <div className="error-message">
+                    {props.errors.behaviorError}
+                  </div>
                 </Form.Group>
               </Col>
 

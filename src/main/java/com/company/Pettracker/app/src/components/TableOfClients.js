@@ -6,8 +6,8 @@ export default function TableOfClients(props) {
 
   const filteredClientData = props.clientData.filter((client) => {
     return (
-      client.petName.toLowerCase().indexOf(props.search) !== -1 ||
-      client.clientName.toLowerCase().indexOf(props.search) !== -1
+      client.petName.toLowerCase().indexOf(props.search.toLowerCase()) !== -1 ||
+      client.clientName.toLowerCase().indexOf(props.search.toLowerCase()) !== -1
     );
   });
 
@@ -45,8 +45,8 @@ export default function TableOfClients(props) {
                   onClick={() => {
                     props.updateSelectedClient(
                       client.petId,
-                      client.clientName,
                       client.petName,
+                      client.clientName,
                       client.phoneNumber,
                       client.lastTime,
                       client.behavior,
@@ -60,8 +60,8 @@ export default function TableOfClients(props) {
                   onClick={() => {
                     props.updateSelectedClient(
                       client.petId,
-                      client.clientName,
                       client.petName,
+                      client.clientName,
                       client.phoneNumber,
                       client.lastTime,
                       client.behavior,
@@ -75,8 +75,8 @@ export default function TableOfClients(props) {
                   onClick={() => {
                     props.updateSelectedClient(
                       client.petId,
-                      client.clientName,
                       client.petName,
+                      client.clientName,
                       client.phoneNumber,
                       client.lastTime,
                       client.behavior,

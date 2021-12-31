@@ -12,62 +12,10 @@ export default function CreateModal(props) {
     banned: false,
   });
 
-  const [errors, setErrors] = useState({
-    petNameError: "",
-    clientNameError: "",
-    phoneNumberError: "",
-    behaviorError: "",
-  });
-
-  const validateForm = () => {
-    let petNameError = "";
-    let clientNameError = "";
-    let phoneNumberError = "";
-    let behaviorError = "";
-
-    if (!newClient.petName.match(/^([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+$/)) {
-      petNameError = "Pet name should only contain valid characters.";
-    }
-
-    if (newClient.petName.length > 15) {
-      petNameError = "Pet's name can not be longer than 15 characters";
-    }
-
-    if (newClient.clientName.length < 2 || newClient.clientName.length > 30) {
-      clientNameError =
-        "Name should be more than 2 characters and less than 30";
-    }
-
-    if (!newClient.clientName.match(/^([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+$/)) {
-      clientNameError = "Client name should only include letters";
-    }
-
-    if (!newClient.phoneNumber.match(/^((\d{3})\s)?(\d{7})$/)) {
-      phoneNumberError =
-        "format should be area code, space then 7 digits ex. 000 0000000";
-    }
-
-    if (!newClient.behavior.match(/^[a-zA-Z]+$/)) {
-      behaviorError = "this field should only contain letters and no spaces";
-    }
-
-    if (petNameError || clientNameError || phoneNumberError || behaviorError) {
-      setErrors({
-        petNameError: petNameError,
-        clientNameError: clientNameError,
-        phoneNumberError: phoneNumberError,
-        behaviorError: behaviorError,
-      });
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formIsValid = validateForm();
+    const formIsValid = props.validateForm(newClient);
 
     if (formIsValid) {
       axios
@@ -76,19 +24,16 @@ export default function CreateModal(props) {
           console.log(res);
           //update list after adding new element
           props.setUpdateList(!props.updateList);
+          props.toggleCreateModal();
+          props.setToastContent({
+            toastTitle: `Client Created Successfully`,
+            toastContent: `${newClient.petName} has been created successfully`
+          });
+          props.toggleShowToast();
         })
         .catch((error) => {
           console.log(error.response.data.message);
         });
-
-      //clear form
-      // this.setState(initialState);
-
-      //update client list
-      // props.getAllClients();
-
-      //alert popup
-      // this.setState({ show: true });
     }
   };
 
@@ -143,7 +88,7 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autoComplete="off"
                   />
-                  <div className="error-message">{errors.petNameError}</div>
+                  <div className="error-message">{props.errors.petNameError}</div>
                 </Form.Group>
 
                 <Form.Group>
@@ -156,7 +101,7 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{errors.clientNameError}</div>
+                  <div className="error-message">{props.errors.clientNameError}</div>
                 </Form.Group>
 
                 <Form.Group>
@@ -169,7 +114,7 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{errors.phoneNumberError}</div>
+                  <div className="error-message">{props.errors.phoneNumberError}</div>
                   <Form.Text
                     className="text-muted"
                     onChange={handleInputChange}
@@ -188,7 +133,7 @@ export default function CreateModal(props) {
                     onChange={handleInputChange}
                     autocomplete="off"
                   />
-                  <div className="error-message">{errors.behaviorError}</div>
+                  <div className="error-message">{props.errors.behaviorError}</div>
                 </Form.Group>
               </Col>
 
