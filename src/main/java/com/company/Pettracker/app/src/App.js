@@ -50,11 +50,14 @@ export default function App() {
   const [updateList, setUpdateList] = useState(false);
 
   const [search, setSearch] = useState("");
+  // this is just to display the current selection on the order and create bar
   const [orderOfItems, setOrderOfItems] = useState("Date Older - Newer");
 
   useEffect(() => {
     Axios.get("http://localhost:8080/pet/getAll").then((response) => {
-      setClientData(response.data);
+      setClientData(
+        response.data.sort((a, b) => (a.lastTime > b.lastTime) * 2 - 1)
+      );
     });
   }, [updateList]);
 
@@ -127,23 +130,26 @@ export default function App() {
     return true;
   };
 
-  // working!
-  const updateListOfClients = () => {
-    switch (orderOfItems) {
+  const updateListOfClients = (order) => {
+    switch (order) {
       case "Alphabetical":
         setClientData(
-          clientData.sort((a, b) => (a.petName > b.petName) * 2 - 1)
+          [...clientData].sort(
+            (a, b) =>
+              (a.petName.toLowerCase() > b.petName.toLowerCase()) * 2 - 1
+          )
         );
         break;
       case "Date Newer - Older":
         setClientData(
-          clientData.sort((a, b) => (a.lastTime < b.lastTime) * 2 - 1)
+          [...clientData].sort((a, b) => (a.lastTime < b.lastTime) * 2 - 1 )
         );
         break;
       default:
         setClientData(
-          clientData.sort((a, b) => (a.lastTime > b.lastTime) * 2 - 1)
+          [...clientData].sort((a, b) => (a.lastTime > b.lastTime) * 2 - 1)
         );
+        break;
     }
   };
 
@@ -169,7 +175,7 @@ export default function App() {
 
   const changeOrder = (e) => {
     setOrderOfItems(e.target.text);
-    updateListOfClients();
+    updateListOfClients(e.target.text);
   };
 
   const deleteClient = (clientId) => {
@@ -188,6 +194,7 @@ export default function App() {
         });
         handleDeleteModal();
         toggleShowToast();
+        updateListOfClients(orderOfItems);
       })
       .catch((error) => {
         // Show Error message here.
@@ -203,17 +210,16 @@ export default function App() {
         toggleShowToast();
       });
   };
-
   return (
     <div className="App">
       <NavBar search={search} updateSearch={updateSearch} />
       <OrderNCreateBar
         changeOrder={changeOrder}
-        order={orderOfItems}
+        orderOfItems={orderOfItems}
         toggleCreateModal={handleOpenCreateModal}
       />
       <TableOfClients
-        order={orderOfItems}
+        orderOfItems={orderOfItems}
         search={search}
         clientData={clientData}
         updateSelectedClient={updateSelectedClient}
@@ -221,6 +227,7 @@ export default function App() {
         toggleCheckIn={handleCheckInModal}
         toggleDelete={handleDeleteModal}
         toggleEdit={handleEditModal}
+        updateListOfClients={updateListOfClients}
       />
       <Toast
         show={showToast}
@@ -245,6 +252,7 @@ export default function App() {
           toggleShowToast={toggleShowToast}
           validateForm={validateForm}
           errors={errors}
+          changeOrder={changeOrder}
         />
       ) : null}
       {editIsOpen ? (
@@ -258,6 +266,7 @@ export default function App() {
           toggleShowToast={toggleShowToast}
           validateForm={validateForm}
           errors={errors}
+          changeOrder={changeOrder}
         />
       ) : null}
       {checkInIsOpen ? (
@@ -269,6 +278,7 @@ export default function App() {
           updateList={updateList}
           setToastContent={setToastContent}
           toggleShowToast={toggleShowToast}
+          changeOrder={changeOrder}
         />
       ) : null}
       {deleteIsOpen ? (
@@ -280,7 +290,7 @@ export default function App() {
           updateList={updateList}
           handleDeleteModal={handleDeleteModal}
         />
-      ) : null} 
+      ) : null}
     </div>
   );
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 export default function TableOfClients(props) {
-  console.log(props.clientData.length);
 
   const filteredClientData = props.clientData.filter((client) => {
     return (

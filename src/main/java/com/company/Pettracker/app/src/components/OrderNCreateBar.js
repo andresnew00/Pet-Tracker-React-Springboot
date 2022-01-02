@@ -9,7 +9,7 @@ export default function OrderNCreateBar(props) {
           <h3>Order By:</h3>
           <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              {props.order}
+              {props.orderOfItems}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>

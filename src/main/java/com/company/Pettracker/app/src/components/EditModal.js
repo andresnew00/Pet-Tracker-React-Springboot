@@ -35,6 +35,7 @@ export default function EditModal(props) {
             },
           });
           props.toggleShowToast();
+          
         });
     }
   };
