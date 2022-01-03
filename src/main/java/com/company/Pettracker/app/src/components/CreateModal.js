@@ -62,9 +62,10 @@ export default function CreateModal(props) {
 
     const { name, value } = event.target;
 
-    setNewClient({
+    setNewClient((prevState) => ({
+      ...prevState,
       [name]: value === "true",
-    });
+    }));
   };
 
   return (

@@ -56,9 +56,10 @@ export default function EditModal(props) {
 
     const { name, value } = event.target;
 
-    props.setSelectedClient({
+    props.setSelectedClient((prevState) => ({
+      ...prevState,
       [name]: value === "true",
-    });
+    }));
   };
 
   return (
