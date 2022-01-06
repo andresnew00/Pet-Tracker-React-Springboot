@@ -5,13 +5,11 @@ export default function OrderNCreateBar(props) {
   return (
     <Container fluid className="OrderNCreate">
       <Row>
-        <Col className="orderBy">
-          <h3>Order By:</h3>
+        <Col className="orderBy display-inline">
           <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
               {props.orderOfItems}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
               <Dropdown.Item onClick={props.changeOrder}>
                 Date Older - Newer
@@ -25,7 +23,7 @@ export default function OrderNCreateBar(props) {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-        <Col className="createButton">
+        <Col className="createButton justify-content-end">
           <Button variant="primary" onClick={props.toggleCreateModal}>
             Create new Patient <i className="fa fa-plus"></i>{" "}
           </Button>{" "}

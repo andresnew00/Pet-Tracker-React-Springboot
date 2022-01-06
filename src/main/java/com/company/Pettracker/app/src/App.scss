@@ -1,9 +1,11 @@
-$main-color: #94618e;
-$button-color: #49274a;
-$button-hover-color: #2a162b;
-$main-beige: #f4decb;
+$main-color: #94618E;
+$sec-color: #C89AC2;
+$button-color: #C89AC2;
+$button-hover-color: #a773a0;
 $sc-beige: #f8eee7;
 $darker-beige: #d6c0ac;
+$text-color-1: #452842;
+$text-color-2: rgba(68, 45, 65, 0.7);
 
 * {
   font-family: "Montserrat", sans-serif;
@@ -11,9 +13,6 @@ $darker-beige: #d6c0ac;
   font-weight: normal;
 }
 
-tbody {
-  position: relative;
-}
 
 .NoClients {
   color: #49274a;
@@ -25,23 +24,12 @@ tbody {
 
 .Nav {
   background-color: $main-color;
-  width: 100%;
-  max-height: 30vh;
-  height: auto;
-  justify-content: space-between;
-  align-items: center;
 
-  .navbar-brand {
-    font-size: 24px;
-    line-height: 29px;
-  }
-
-  .navbar-collapse {
-    justify-content: flex-end;
+  .nav-margin {
+    margin: 1em;
   }
 
   input {
-    background-color: $main-beige;
     border-radius: 20px;
   }
 }
@@ -49,33 +37,46 @@ tbody {
 .OrderNCreate {
   margin: 10px 0px 0px 0px;
   height: 50px;
-  border-bottom: solid black 0.5px;
+
   .orderBy {
     margin: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+
     h3 {
       font-size: 18px;
       margin-right: 20px;
       margin-bottom: 0;
     }
+
     button {
       background-color: $button-color;
       border-radius: 20px;
       outline: none;
+      border: none;
+      color: $text-color-1;
     }
+
+    button:focus {
+      outline: 0 !important;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+
     .btn-success:not(:disabled):not(.disabled).active,
     .btn-success:not(:disabled):not(.disabled):active,
-    .show > .btn-success.dropdown-toggle {
+    .show>.btn-success.dropdown-toggle {
       background-color: $button-hover-color;
       border-color: $button-hover-color;
     }
+
     .btn-success:not(:disabled):not(.disabled).active:focus,
     .btn-success:not(:disabled):not(.disabled):active:focus,
-    .show > .btn-success.dropdown-toggle:focus {
+    .show>.btn-success.dropdown-toggle:focus {
       box-shadow: none;
     }
+
     .btn-success.focus,
     .btn-success:focus {
       box-shadow: none;
@@ -84,49 +85,57 @@ tbody {
 
   .createButton {
     display: flex;
-    justify-content: flex-end;
+
     button {
       background-color: $button-color;
       border-radius: 20px;
       outline: none;
+      color: $text-color-1;
     }
+
     .btn-primary {
       border-color: $button-color;
     }
   }
 }
 
-.TableOfClients {
-  width: 95%;
-  margin: 15px auto;
-  thead,
-  tbody {
-    background-color: $sc-beige;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  thead {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    background-color: $main-beige;
-  }
-  tbody {
-    display: block;
-    height: 400px;
-    overflow-y: scroll;
-  }
-  tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  .items:not(.no-hover):hover {
-    background-color: $darker-beige;
-  }
-  .fa {
-    cursor: pointer;
-    padding: 4px;
-  }
+
+
+// .TableOfClients {
+//   width: 95%;
+//   margin: 15px auto;
+//   thead,
+//   tbody {
+//     background-color: $sc-beige;
+//     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//   }
+//   thead {
+//     display: table;
+//     width: 100%;
+//     table-layout: fixed;
+//     background-color: $main-beige;
+//   }
+//   tbody {
+//     display: block;
+//     height: 400px;
+//     overflow-y: scroll;
+//   }
+//   tbody tr {
+//     display: table;
+//     width: 100%;
+//     table-layout: fixed;
+//   }
+//   .items:not(.no-hover):hover {
+//     background-color: $darker-beige;
+//   }
+//   .fa {
+//     cursor: pointer;
+//     padding: 4px;
+//   }
+// }
+
+.tableContainer {
+  margin: 1em;
 }
 
 .CreateModal {
@@ -136,6 +145,7 @@ tbody {
   width: 100%;
   height: 100%;
   backdrop-filter: blur(5px);
+
   section {
     position: fixed;
     background: white;
@@ -148,23 +158,28 @@ tbody {
     border: 0.2px solid #7272728f;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+
   .topBar {
     border-bottom: 1px solid #c5c5c5;
     padding: 10px;
   }
+
   .modalContent {
     margin: 30px;
   }
+
   .buttonbottom {
     display: flex;
     width: 100%;
     padding: 15px;
     justify-content: flex-end;
   }
+
   .closeButton {
     display: flex;
     justify-content: flex-end;
   }
+
   .error-message {
     width: 100%;
     margin-top: 0.25rem;
