@@ -104,6 +104,31 @@
   margin: 1em;
 }
 
+.tableContainer .table-responsive {
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.tableContainer .TableOfClients thead {
+  background-color: #C89AC2;
+}
+
+.tableContainer .TableOfClients .items:not(.no-hover):hover {
+  background-color: #b382ac;
+}
+
+.tableContainer .TableOfClients .fa {
+  cursor: pointer;
+  padding: 4px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 .CreateModal {
   position: fixed;
   top: 0;

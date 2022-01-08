@@ -1,5 +1,6 @@
 $main-color: #94618E;
 $sec-color: #C89AC2;
+$row-hover-color: #b382ac;
 $button-color: #C89AC2;
 $button-hover-color: #a773a0;
 $sc-beige: #f8eee7;
@@ -99,8 +100,6 @@ $text-color-2: rgba(68, 45, 65, 0.7);
   }
 }
 
-
-
 // .TableOfClients {
 //   width: 95%;
 //   margin: 15px auto;
@@ -136,6 +135,32 @@ $text-color-2: rgba(68, 45, 65, 0.7);
 
 .tableContainer {
   margin: 1em;
+
+  .table-responsive {
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  .TableOfClients {
+    thead {
+      background-color: $sec-color;
+    }
+
+    .items:not(.no-hover):hover {
+      background-color: $row-hover-color;
+    }
+
+    .fa {
+      cursor: pointer;
+      padding: 4px;
+    }
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 .CreateModal {

@@ -16,7 +16,7 @@ export default function NavBar(props) {
         <Form inline>
           <FormControl
             type="text"
-            placeholder="Search"
+            placeholder="Search Patient"
             className="mr-sm-2"
             value={props.search}
             onChange={props.updateSearch}
