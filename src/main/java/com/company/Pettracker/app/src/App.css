@@ -4,10 +4,6 @@
   font-weight: normal;
 }
 
-tbody {
-  position: relative;
-}
-
 .NoClients {
   color: #49274a;
   position: absolute;
@@ -17,38 +13,20 @@ tbody {
 }
 
 .Nav {
-  background-color: #94618e;
-  width: 100%;
-  max-height: 30vh;
-  height: auto;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  background-color: #94618E;
 }
 
-.Nav .navbar-brand {
-  font-size: 24px;
-  line-height: 29px;
-}
-
-.Nav .navbar-collapse {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+.Nav .nav-margin {
+  margin: 1em;
 }
 
 .Nav input {
-  background-color: #f4decb;
   border-radius: 20px;
 }
 
 .OrderNCreate {
   margin: 10px 0px 0px 0px;
   height: 50px;
-  border-bottom: solid black 0.5px;
 }
 
 .OrderNCreate .orderBy {
@@ -72,16 +50,24 @@ tbody {
 }
 
 .OrderNCreate .orderBy button {
-  background-color: #49274a;
+  background-color: #C89AC2;
   border-radius: 20px;
   outline: none;
+  border: none;
+  color: #452842;
+}
+
+.OrderNCreate .orderBy button:focus {
+  outline: 0 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled).active,
 .OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled):active,
 .OrderNCreate .orderBy .show > .btn-success.dropdown-toggle {
-  background-color: #2a162b;
-  border-color: #2a162b;
+  background-color: #a773a0;
+  border-color: #a773a0;
 }
 
 .OrderNCreate .orderBy .btn-success:not(:disabled):not(.disabled).active:focus,
@@ -101,59 +87,46 @@ tbody {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 
 .OrderNCreate .createButton button {
-  background-color: #49274a;
+  background-color: #C89AC2;
   border-radius: 20px;
   outline: none;
+  color: #452842;
 }
 
 .OrderNCreate .createButton .btn-primary {
-  border-color: #49274a;
+  border-color: #C89AC2;
 }
 
-.TableOfClients {
-  width: 95%;
-  margin: 15px auto;
+.tableContainer {
+  margin: 1em;
 }
 
-.TableOfClients thead,
-.TableOfClients tbody {
-  background-color: #f8eee7;
-  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.tableContainer .table-responsive {
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.TableOfClients thead {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  background-color: #f4decb;
+.tableContainer .TableOfClients thead {
+  background-color: #C89AC2;
 }
 
-.TableOfClients tbody {
-  display: block;
-  height: 400px;
-  overflow-y: scroll;
+.tableContainer .TableOfClients .items:not(.no-hover):hover {
+  background-color: #b382ac;
 }
 
-.TableOfClients tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-.TableOfClients .items:not(.no-hover):hover {
-  background-color: #d6c0ac;
-}
-
-.TableOfClients .fa {
+.tableContainer .TableOfClients .fa {
   cursor: pointer;
   padding: 4px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 .CreateModal {
@@ -217,7 +190,7 @@ tbody {
 }
 
 .CheckInModal .yesButton {
-  background-color: #94618e;
-  border-color: #94618e;
+  background-color: #94618E;
+  border-color: #94618E;
 }
 /*# sourceMappingURL=App.css.map */
